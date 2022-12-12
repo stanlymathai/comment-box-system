@@ -1,10 +1,12 @@
 import "./CommentStructure.scss"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { GlobalContext } from "../../context/Provider"
 import InputField from "../InputField/Index"
 import { Menu, MenuItem } from "@szhsin/react-menu"
 import "@szhsin/react-menu/dist/index.css"
 import "@szhsin/react-menu/dist/transitions/slide.css"
+import "react-responsive-modal/styles.css"
+import { Modal } from "react-responsive-modal"
 import React from "react"
 
 interface CommentStructureProps {
@@ -122,9 +124,9 @@ const CommentStructure = ({
   }
 
   const replyButton = () => {
-    let myArray = ["s", "m", "h", "months"]
-    var rand = myArray[~~(Math.random() * myArray.length)]
-    let timeFromNow = Math.floor(Math.random() * 9 + 1) + `${rand}`
+    let unitArray = ["s", "m", "h"]
+    let unit = unitArray[~~(Math.random() * unitArray.length)]
+    let timeFromNow = Math.floor(Math.random() * 9 + 1) + `${unit}`
 
     return (
       <div style={info.replyComponent ? { visibility: "hidden" } : {}}>
@@ -140,9 +142,9 @@ const CommentStructure = ({
     )
   }
 
-  const replySection = () => {
+  const commentBox = () => {
     return (
-      <div className='halfDiv'>
+      <div className='comment-box'>
         <div className='userInfo'>
           {userInfo()}
           <div className='infoStyle'>{info.text}</div>
@@ -153,7 +155,7 @@ const CommentStructure = ({
                 {reactionOverview()}
                 {replyButton()}
               </div>
-              <div className='flagBtn' />
+              <div className='float-right flagBtn' onClick={onOpenModal} />
             </div>
           )}
         </div>
@@ -161,10 +163,10 @@ const CommentStructure = ({
     )
   }
 
-  const actionModeSection = () => {
+  const commentBoxWithInput = () => {
     return (
       <div className='replysection'>
-        {replySection()}
+        {commentBox()}
         <InputField
           formStyle={{
             backgroundColor: "transparent",
@@ -180,9 +182,39 @@ const CommentStructure = ({
     )
   }
 
+  // report action modal
+  const [open, setOpen] = useState(false)
+  const onOpenModal = () => setOpen(true)
+  const onCloseModal = () => setOpen(false)
+
+  const reportAction = () => {
+    return
+    const reportContent = [
+      "False Information",
+      "Bully & Harassment",
+      "Offensive",
+      "Terrorism",
+      "Scam or Fraud",
+      "Something else"
+    ]
+    return (
+      <Modal open={open} onClose={onCloseModal} center>
+        <hr />
+        <ul>
+          {reportContent.map((content, index) => (
+            <li className='report-content' key={index}>
+              {content}
+            </li>
+          ))}
+        </ul>
+      </Modal>
+    )
+  }
+
   return (
     <div className='comment-structure'>
-      {replyMode ? actionModeSection() : replySection()}
+      {replyMode ? commentBoxWithInput() : commentBox()}
+      {reportAction()}
     </div>
   )
 }
