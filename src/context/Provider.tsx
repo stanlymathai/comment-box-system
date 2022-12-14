@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from 'react'
-// const { v4: uuidv4 } = require('uuid')
 import _ from 'lodash'
 
 export const GlobalContext = createContext({})
@@ -8,7 +7,6 @@ export const GlobalProvider = ({
   children,
   currentUser,
   replyTop,
-  customImg,
   inputStyle,
   formStyle,
   submitBtnStyle,
@@ -33,7 +31,6 @@ export const GlobalProvider = ({
     currentUserFullName: string
   } | null
   replyTop?: boolean
-  customImg?: string
   inputStyle?: object
   formStyle?: object
   submitBtnStyle?: object
@@ -230,7 +227,6 @@ export const GlobalProvider = ({
         replyArr: replyArr,
         onReply: onReply,
         onDelete: onDelete,
-        customImg: customImg,
         inputStyle: inputStyle,
         formStyle: formStyle,
         submitBtnStyle: submitBtnStyle,
