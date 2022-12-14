@@ -3,7 +3,7 @@ import "./InputField.scss"
 import { useContext } from "react"
 import { GlobalContext } from "../../context/Provider"
 
-interface RegularInputProps {
+interface InputComponentProps {
   formStyle?: object
   comId?: string
   mode?: string
@@ -18,8 +18,7 @@ interface RegularInputProps {
   setText: Function
 }
 
-const RegularInput = ({
-  // formStyle,
+const InputComponent = ({
   imgDiv,
   imgStyle,
   customImg,
@@ -30,13 +29,12 @@ const RegularInput = ({
   handleSubmit,
   text,
   setText
-}: RegularInputProps) => {
+}: InputComponentProps) => {
   const globalStore: any = useContext(GlobalContext)
 
   return (
     <form
       className='form'
-      // style={globalStore.formStyle || formStyle}
       style={{ backgroundColor: "#1a1a2b" }}
       onSubmit={() => handleSubmit}
     >
@@ -57,14 +55,8 @@ const RegularInput = ({
           />
         </a>
       </div>
-      {/* {globalStore.removeEmoji ? ( */}
       <input
         className='postComment'
-        // style={
-        //   mode === 'replyMode' || mode === 'editMode'
-        //     ? globalStore.replyInputStyle
-        //     : globalStore.inputStyle || inputStyle
-        // }
         type='text'
         placeholder='Write a comment....'
         value={text}
@@ -102,4 +94,4 @@ const RegularInput = ({
   )
 }
 
-export default RegularInput
+export default InputComponent

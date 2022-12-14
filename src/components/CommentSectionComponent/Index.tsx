@@ -5,35 +5,9 @@ import { useContext } from "react"
 import { GlobalContext } from "../../context/Provider"
 import _ from "lodash"
 import React from "react"
-import LoginSection from "../LoginSection/LoginSection"
 import NoComments from "./NoComments"
 
-interface CommentSectionProps {
-  overlayStyle?: object
-  logIn: {
-    loginLink: string
-    signupLink: string
-  }
-  hrStyle?: object
-  titleStyle?: object
-  customNoComment?: Function
-}
-
-const CommentSection = ({
-  overlayStyle,
-  logIn,
-  // hrStyle,
-  titleStyle,
-  customNoComment
-}: CommentSectionProps) => {
-  const loginMode = () => {
-    return (
-      <LoginSection
-        loginLink={logIn!.loginLink}
-        signUpLink={logIn!.signupLink}
-      />
-    )
-  }
+const CommentSection = () => {
   const globalStore: any = useContext(GlobalContext)
 
   const totalComments = () => {
@@ -46,13 +20,9 @@ const CommentSection = ({
   }
 
   return (
-    <div
-      className='overlay'
-      style={{ ...overlayStyle, background: "#1a1a2b", padding: "10px" }}
-    >
-      <p className='comment-title_' style={{ ...titleStyle, fontSize: "14px" }}>
-        {globalStore.commentsCount || totalComments()}{" "}
-        {totalComments() === 1 ? "Comment" : "Comments"}
+    <div className='overlay' style={{ background: "#1a1a2b", padding: "10px" }}>
+      <p className='comment-title_' style={{ fontSize: "14px" }}>
+        {totalComments()} {totalComments() === 1 ? "Comment" : "Comments"}
       </p>
 
       {globalStore.data.length > 0 ? (
@@ -63,7 +33,6 @@ const CommentSection = ({
             fullName: string
             avatarUrl: string
             text: string
-            userProfile?: string
             replies: Array<any> | undefined
           }) => {
             return (
@@ -75,7 +44,6 @@ const CommentSection = ({
                       ? false
                       : true
                   }
-                  logIn={logIn}
                 />
                 {i.replies &&
                   i.replies.length > 0 &&
@@ -90,7 +58,6 @@ const CommentSection = ({
                               ? false
                               : true
                           }
-                          logIn={logIn}
                         />
                       </div>
                     )
@@ -99,19 +66,11 @@ const CommentSection = ({
             )
           }
         )
-      ) : customNoComment ? (
-        customNoComment()
       ) : (
         <NoComments />
       )}
-      {globalStore.currentUserData === null ? (
-        loginMode()
-      ) : (
-        <InputField
-          formStyle={{ margin: "10px 10px", background: "red" }}
-          imgDiv={{ margin: 0 }}
-        />
-      )}
+
+      <InputField />
     </div>
   )
 }

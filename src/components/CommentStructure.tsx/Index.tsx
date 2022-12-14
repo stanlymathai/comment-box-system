@@ -22,10 +22,6 @@ interface CommentStructureProps {
   }
   parentId?: string
   replyMode: boolean
-  logIn: {
-    loginLink: string
-    signupLink: string
-  }
 }
 
 const CommentStructure = ({
