@@ -72,31 +72,6 @@
     }
   }
 }
-.reactionGroup {
-  border: none;
-  outline: none;
-  display: flex;
-  line-height: 10px;
-  background-color: transparent;
-
-  &:hover {
-    outline: none;
-  }
-  &:focus {
-    outline: 0;
-  }
-}
-.user-action-text {
-  color: #f2f2f2;
-  padding: 2px;
-  margin-left: 8px;
-  font-weight: 600;
-}
-.vertical-line {
-  margin-left: 8.5px;
-  margin-right: 8.5px;
-  border-left: 1px solid rgba(255, 255, 255, 0.12);
-}
 .replyBtn {
   background-color: transparent;
   border: none;
@@ -113,6 +88,41 @@
   &:focus {
     outline: 0;
   }
+}
+.reactionGroup {
+  border: none;
+  outline: none;
+  display: flex;
+  line-height: 10px;
+  background-color: transparent;
+  transform: scale(0.8);
+  &:hover {
+    outline: none;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+.reaction-count-text {
+  color: #f2f2f2;
+  padding: 2px;
+  margin-left: 8px;
+  font-weight: 600;
+  line-height: 10px;
+}
+.reply-btn-text {
+  margin-left: 10px;
+}
+.published-time-text {
+  font-family: neuzeit-grotesk, sans-serif;
+  margin-left: 5px;
+  background-color: transparent;
+  color: #2d2d312f;
+  text-shadow: 1px 1px 0 #ffffff;
+  transform: scale(0.987);
+}
+.vertical-line {
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
 }
 .flagBtn {
   color: red;

@@ -8,6 +8,7 @@ import "@szhsin/react-menu/dist/transitions/slide.css"
 import "react-responsive-modal/styles.css"
 import { Modal } from "react-responsive-modal"
 import React from "react"
+import moment from "moment"
 
 interface CommentStructureProps {
   info: {
@@ -110,30 +111,31 @@ const CommentStructure = ({
   const reactionOverview = () => {
     let reactionCount = Math.floor(Math.random() * 9 + 1) + "K"
     return (
-      <button className='reactionGroup'>
+      <div className='reactionGroup'>
         <span className='emoji-blue'>&#128077;</span>
         <span>&#128161;</span>
         <span>&#129300;</span>
-        <span className='user-action-text'>{reactionCount}</span>
-      </button>
+        <span className='reaction-count-text'>{reactionCount}</span>
+      </div>
     )
   }
 
   const replyButton = () => {
-    let unitArray = ["s", "m", "h"]
-    let unit = unitArray[~~(Math.random() * unitArray.length)]
-    let timeFromNow = Math.floor(Math.random() * 9 + 1) + `${unit}`
-
+    let d = new Date()
+    d.setMinutes(d.getMinutes() - Math.floor(Math.random() * 59) + 1)
+    let d_fromNOw = moment(d).fromNow(true)
     return (
-      <div style={info.replyComponent ? { visibility: "hidden" } : {}}>
+      <div className='replyBtn'>
         <span className='vertical-line' />
-        <button
-          className='replyBtn'
-          onClick={() => globalStore.handleReply(info.comId)}
-        >
-          <span>Reply</span>
-          <span className='user-action-text'>{timeFromNow}</span>
-        </button>
+        {!info.replyComponent && (
+          <span
+            className='reply-btn-text'
+            onClick={() => globalStore.handleReply(info.comId)}
+          >
+            Reply
+          </span>
+        )}
+        <span className='published-time-text'>{d_fromNOw}</span>
       </div>
     )
   }
