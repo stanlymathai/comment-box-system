@@ -10,10 +10,8 @@ interface CommentSectionProps {
     currentUserFullName: string
   } | null
   inputStyle?: object
-  formStyle?: object
   submitBtnStyle?: object
   cancelBtnStyle?: object
-  replyInputStyle?: object
   onSubmitAction?: Function
   onReplyAction?: Function
   currentData?: Function
@@ -38,10 +36,8 @@ interface CommentSectionProps {
 export const CommentSection = ({
   currentUser,
   inputStyle,
-  formStyle,
   submitBtnStyle,
   cancelBtnStyle,
-  replyInputStyle,
   commentData,
   onSubmitAction,
   onReplyAction,
@@ -51,10 +47,8 @@ export const CommentSection = ({
     <GlobalProvider
       currentUser={currentUser}
       inputStyle={inputStyle}
-      formStyle={formStyle}
       submitBtnStyle={submitBtnStyle}
       cancelBtnStyle={cancelBtnStyle}
-      replyInputStyle={replyInputStyle}
       commentData={commentData}
       onSubmitAction={onSubmitAction}
       onReplyAction={onReplyAction}

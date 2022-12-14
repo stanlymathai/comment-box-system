@@ -1,51 +1,34 @@
-import React, { createContext, useEffect, useState } from 'react'
-import _ from 'lodash'
+import React, { createContext, useEffect, useState } from "react"
+import _ from "lodash"
 
 export const GlobalContext = createContext({})
 
 export const GlobalProvider = ({
   children,
   currentUser,
-  replyTop,
   inputStyle,
-  formStyle,
   submitBtnStyle,
   cancelBtnStyle,
-  imgStyle,
-  commentsCount,
   commentData,
   onSubmitAction,
-  onDeleteAction,
   onReplyAction,
-  onEditAction,
-  currentData,
-  replyInputStyle,
-  removeEmoji,
-  advancedInput
+  currentData
 }: {
   children: any
   currentUser?: {
     currentUserId: string
     currentUserImg: string
-    currentUserProfile?: string | undefined
     currentUserFullName: string
   } | null
-  replyTop?: boolean
   inputStyle?: object
-  formStyle?: object
   submitBtnStyle?: object
   cancelBtnStyle?: object
-  imgStyle?: object
-  replyInputStyle?: object
-  commentsCount?: number
-  removeEmoji?: boolean
   commentData?: Array<{
     userId: string
     comId: string
     fullName: string
     avatarUrl: string
     text: string
-    userProfile?: string
     replies?:
       | Array<{
           userId: string
@@ -53,16 +36,12 @@ export const GlobalProvider = ({
           fullName: string
           avatarUrl: string
           text: string
-          userProfile?: string
         }>
       | undefined
   }>
   onSubmitAction?: Function
-  onDeleteAction?: Function
   onReplyAction?: Function
-  onEditAction?: Function
   currentData?: Function
-  advancedInput?: boolean
 }) => {
   const [currentUserData] = useState(currentUser)
   const [data, setData] = useState<
@@ -72,7 +51,6 @@ export const GlobalProvider = ({
       fullName: string
       avatarUrl: string
       text: string
-      userProfile?: string
       replies?:
         | Array<{
             userId: string
@@ -80,12 +58,10 @@ export const GlobalProvider = ({
             fullName: string
             avatarUrl: string
             text: string
-            userProfile?: string
           }>
         | undefined
     }>
   >([])
-  const [editArr, setEdit] = useState<string[]>([])
   const [replyArr, setReply] = useState<string[]>([])
 
   useEffect(() => {
@@ -100,62 +76,29 @@ export const GlobalProvider = ({
     }
   }, [data])
 
-  const handleAction = (id: string, edit: boolean) => {
-    if (edit) {
-      let editArrCopy: string[] = [...editArr]
-      let indexOfId = _.indexOf(editArrCopy, id)
-      if (_.includes(editArr, id)) {
-        editArrCopy.splice(indexOfId, 1)
-        setEdit(editArrCopy)
-      } else {
-        editArrCopy.push(id)
-        setEdit(editArrCopy)
-      }
+  const handleReply = (id: string) => {
+    let replyArrCopy: string[] = [...replyArr]
+    let indexOfId = _.indexOf(replyArrCopy, id)
+    if (_.includes(replyArr, id)) {
+      replyArrCopy.splice(indexOfId, 1)
+      setReply(replyArrCopy)
     } else {
-      let replyArrCopy: string[] = [...replyArr]
-      let indexOfId = _.indexOf(replyArrCopy, id)
-      if (_.includes(replyArr, id)) {
-        replyArrCopy.splice(indexOfId, 1)
-        setReply(replyArrCopy)
-      } else {
-        replyArrCopy.push(id)
-        setReply(replyArrCopy)
-      }
+      replyArrCopy.push(id)
+      setReply(replyArrCopy)
     }
   }
 
-  const onSubmit = (text: string, uuid: string) => {
+  const handleSubmit = (text: string, uuid: string) => {
     let copyData = [...data]
     copyData.push({
       userId: currentUserData!.currentUserId,
       comId: uuid,
       avatarUrl: currentUserData!.currentUserImg,
-      userProfile: currentUserData!.currentUserProfile
-        ? currentUserData!.currentUserProfile
-        : undefined,
       fullName: currentUserData!.currentUserFullName,
       text: text,
       replies: []
     })
     setData(copyData)
-  }
-
-  const onEdit = (text: string, comId: string, parentId: string) => {
-    let copyData = [...data]
-    if (parentId) {
-      const indexOfParent = _.findIndex(copyData, { comId: parentId })
-      const indexOfId = _.findIndex(copyData[indexOfParent].replies, {
-        comId: comId
-      })
-      copyData[indexOfParent].replies![indexOfId].text = text
-      setData(copyData)
-      handleAction(comId, true)
-    } else {
-      const indexOfId = _.findIndex(copyData, { comId: comId })
-      copyData[indexOfId].text = text
-      setData(copyData)
-      handleAction(comId, true)
-    }
   }
 
   const onReply = (
@@ -171,14 +114,11 @@ export const GlobalProvider = ({
         userId: currentUserData!.currentUserId,
         comId: uuid,
         avatarUrl: currentUserData!.currentUserImg,
-        userProfile: currentUserData!.currentUserProfile
-          ? currentUserData!.currentUserProfile
-          : undefined,
         fullName: currentUserData!.currentUserFullName,
         text: text
       })
       setData(copyData)
-      handleAction(comId, false)
+      handleReply(comId)
     } else {
       const indexOfId = _.findIndex(copyData, {
         comId: comId
@@ -187,59 +127,28 @@ export const GlobalProvider = ({
         userId: currentUserData!.currentUserId,
         comId: uuid,
         avatarUrl: currentUserData!.currentUserImg,
-        userProfile: currentUserData!.currentUserProfile
-          ? currentUserData!.currentUserProfile
-          : undefined,
         fullName: currentUserData!.currentUserFullName,
         text: text
       })
       setData(copyData)
-      handleAction(comId, false)
-    }
-  }
-
-  const onDelete = (comId: string, parentId: string) => {
-    let copyData = [...data]
-    if (parentId) {
-      const indexOfParent = _.findIndex(copyData, { comId: parentId })
-      const indexOfId = _.findIndex(copyData[indexOfParent].replies, {
-        comId: comId
-      })
-      copyData[indexOfParent].replies!.splice(indexOfId, 1)
-      setData(copyData)
-    } else {
-      const indexOfId = _.findIndex(copyData, { comId: comId })
-      copyData.splice(indexOfId, 1)
-      setData(copyData)
+      handleReply(comId)
     }
   }
 
   return (
     <GlobalContext.Provider
       value={{
-        currentUserData: currentUserData,
-        replyTop: replyTop,
-        data: data,
-        handleAction: handleAction,
-        editArr: editArr,
-        onSubmit: onSubmit,
-        onEdit: onEdit,
-        replyArr: replyArr,
-        onReply: onReply,
-        onDelete: onDelete,
-        inputStyle: inputStyle,
-        formStyle: formStyle,
-        submitBtnStyle: submitBtnStyle,
-        cancelBtnStyle: cancelBtnStyle,
-        imgStyle: imgStyle,
-        commentsCount: commentsCount,
-        onSubmitAction: onSubmitAction,
-        onDeleteAction: onDeleteAction,
-        onReplyAction: onReplyAction,
-        onEditAction: onEditAction,
-        replyInputStyle: replyInputStyle,
-        removeEmoji: removeEmoji,
-        advancedInput: advancedInput
+        currentUserData,
+        data,
+        onReply,
+        handleReply,
+        handleSubmit,
+        replyArr,
+        inputStyle,
+        submitBtnStyle,
+        cancelBtnStyle,
+        onSubmitAction,
+        onReplyAction
       }}
     >
       {children}

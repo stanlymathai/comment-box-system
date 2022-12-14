@@ -81,11 +81,7 @@ const InputComponent = ({
           className='cancelBtn'
           style={globalStore.cancelBtnStyle || cancelBtnStyle}
           type='button'
-          onClick={() =>
-            mode === "editMode"
-              ? globalStore.handleAction(comId, true)
-              : globalStore.handleAction(comId, false)
-          }
+          onClick={() => globalStore.handleReply(comId)}
         >
           Cancel
         </button>

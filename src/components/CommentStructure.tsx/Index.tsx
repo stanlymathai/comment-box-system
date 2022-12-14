@@ -129,7 +129,7 @@ const CommentStructure = ({
         <span className='vertical-line' />
         <button
           className='replyBtn'
-          onClick={() => globalStore.handleAction(info.comId, false)}
+          onClick={() => globalStore.handleReply(info.comId)}
         >
           <span>Reply</span>
           <span className='user-action-text'>{timeFromNow}</span>

@@ -86,7 +86,7 @@ const InputField = ({
     const textToSend = advText ? advText : text
 
     return (
-      await globalStore.onSubmit(textToSend, createUuid),
+      await globalStore.handleSubmit(textToSend, createUuid),
       globalStore.onSubmitAction &&
         (await globalStore.onSubmitAction({
           userId: globalStore.currentUserData.currentUserId,
