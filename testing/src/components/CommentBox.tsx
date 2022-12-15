@@ -12,6 +12,7 @@ const CommentBox = () => {
       avatarUrl:
         "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F13%2F2015%2F04%2F05%2Ffeatured.jpg&q=60",
       text: "This is why I'm investing in web3 games",
+      timeStamp: "2022-10-12T06:34:18.189Z",
       replies: [
         {
           userId: "02a",
@@ -19,7 +20,8 @@ const CommentBox = () => {
           fullName: "Ramachandran Gavarpattu",
           avatarUrl:
             "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(9).webp",
-          text: "Good Work team! Let us keep up the momentum 🙌"
+          text: "Good Work team! Let us keep up the momentum 🙌",
+          timeStamp: "2022-11-12T06:34:18.189Z"
         },
         {
           userId: "01a",
@@ -27,7 +29,8 @@ const CommentBox = () => {
           fullName: "CryptoTasha",
           avatarUrl:
             "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F13%2F2015%2F04%2F05%2Ffeatured.jpg&q=60",
-          text: "thanks!🥰"
+          text: "thanks!🥰",
+          timeStamp: "2022-12-15T06:34:18.189Z"
         },
         {
           userId: "01b",
@@ -53,6 +56,7 @@ const CommentBox = () => {
       fullName: "Ricardo Landman",
       text: "This lady gets it!!! 😊",
       avatarUrl: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(21).webp",
+      timeStamp: "2022-12-14T06:34:18.189Z",
       replies: []
     }
   ])

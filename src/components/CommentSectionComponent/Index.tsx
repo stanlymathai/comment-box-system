@@ -33,6 +33,7 @@ const CommentSection = () => {
             fullName: string
             avatarUrl: string
             text: string
+            timeStamp:string
             replies: Array<any> | undefined
           }) => {
             return (

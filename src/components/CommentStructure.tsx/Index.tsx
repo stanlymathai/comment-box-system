@@ -17,6 +17,7 @@ interface CommentStructureProps {
     fullName: string
     avatarUrl: string
     text: string
+    timeStamp?: string
     userProfile?: string
     replies?: Array<object> | undefined
     replyComponent?: boolean | undefined
@@ -121,9 +122,7 @@ const CommentStructure = ({
   }
 
   const replyButton = () => {
-    let d = new Date()
-    d.setMinutes(d.getMinutes() - Math.floor(Math.random() * 59) + 1)
-    let d_fromNOw = moment(d).fromNow(true)
+    let d_fromNOw = moment(info.timeStamp).fromNow(true)
     return (
       <div className='replyBtn'>
         <span className='vertical-line' />
