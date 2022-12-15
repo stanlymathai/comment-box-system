@@ -1,6 +1,6 @@
 import React from "react"
-import { CommentSection } from "react-comments-section"
-import "react-comments-section/dist/index.css"
+import { CommentSection } from "discussion-box"
+import "discussion-box/dist/index.css"
 import { useState } from "react"
 
 const CommentBox = () => {

@@ -10,20 +10,20 @@ import NoComments from "./NoComments"
 const CommentSection = () => {
   const globalStore: any = useContext(GlobalContext)
 
-  const totalComments = () => {
-    let count = 0
-    globalStore.data.map((i: any) => {
-      count = count + 1
-      i.replies.map(() => (count = count + 1))
-    })
-    return count
-  }
+  // const totalComments = () => {
+  //   let count = 0
+  //   globalStore.data.map((i: any) => {
+  //     count = count + 1
+  //     i.replies.map(() => (count = count + 1))
+  //   })
+  //   return count
+  // }
 
   return (
-    <div className='overlay' style={{ background: "#1a1a2b", padding: "10px" }}>
-      <p className='comment-title_' style={{ fontSize: "14px" }}>
+    <div className='overlay'>
+      {/* <p className='comment-title_' style={{ fontSize: "14px" }}>
         {totalComments()} {totalComments() === 1 ? "Comment" : "Comments"}
-      </p>
+      </p> */}
 
       {globalStore.data.length > 0 ? (
         globalStore.data.map(
